@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Policy Listing </title>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Montserrat:wght@800&amp;display=swap'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  {% load static %}
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.3/css/dataTables.dataTables.css">
+
+  <style>
+    body{
+      background-color: #f0f1f3;height: 100%;
+    }
+    .table-responsive{border-radius: 10px;}
+    .dataTables_wrapper .dt-container .dt-length label.dt-length-0{
+      text-transform: capitalize;
+      padding-left: 10px;
+    }
+    @media (max-width: 575px){
+      .dt-length{display: none;}
+      .dt-search{float: right;}
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="container detail_page">
+
+    <div class="row">
+        <div class="col-12">
+            <!-- <a href="/all_policy" class="btn btn-sm btn-primary logoutbtn"><i class="fa fa-file-text-o" aria-hidden="true"></i> Policy Details</a> -->
+            <button onclick="history.back()" class="btn btn-sm btn-outline-dark mb-3"><i class="fa fa-chevron-left" aria-hidden="true" style="margin-right:6px;"></i>Go Back</button>
+            <a href="/logout" class="btn btn-sm btn-outline-danger logoutbtn"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+        </div>
+    </div>
+    
+    <div class="p-4 bg-white">
+      <div class="col-12">
+        <a href="/add_policy" class="btn btn-outline-primary float-right mb-4" style="float: right;"><i class="fa fa-plus"></i> Add Policy</a>
+      </div>
+      <h4>Policy Listing</h4>
+      
+      <div class="dataTables_wrapper  no-footer">
+          <table class="table text-nowrap  overflow-auto table-responsive d-block d-md-table no-footer" id="dTable" role="grid">
+              <thead>
+                  <tr role="row">
+                      <th class="sorting_asc" rowspan="1" colspan="1" aria-label="Sr. No." style="width: 103.85px;">Sr. No.</th>
+                      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 217.587px;">Name</th>
+                      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 130.488px;">Mobile Number</th>
+                      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="View Details: activate to sort column ascending" style="width: 174.425px;">View Details</th>
+                      <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Action" style="width: 282.85px;">Action</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for policy in policies %}
+
+                  <tr role="row" class="odd">
+                      <td class="sorting_1">{{ forloop.counter }}</td>
+                      <td id="summernote">{{policy.name}}</td>
+                      <td>{{policy.mobile}}</td>
+                      <td><a href="/view_policy/{{policy.id}}" class="btn btn-sm btn-warning text-white" >View Details</a></td>
+                      <td>
+                          <a href="/edit_policy/{{policy.id}}" class="btn btn-sm btn-info text-white">Edit</a>
+                          <a href="/delete_policy/{{policy.id}}" class="btn btn-sm btn-danger"  >Delete</a>
+                      </td>
+                  </tr>
+
+                  {% endfor %}
+              </tbody>
+          </table>
+          <!-- <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+              <a class="paginate_button previous disabled" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" id="DataTables_Table_0_previous">Previous</a>
+              <span><a class="paginate_button current" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></span>
+              <a class="paginate_button next disabled" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" id="DataTables_Table_0_next">Next</a>
+          </div> -->
+      </div>
+  </div>
+
+
+  </div>
+
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalLabel">Delete Item</h5>
+          <button type="button" class="close btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <!-- <span aria-hidden="true">×</span> -->
+          </button>
+        </div>
+        <div class="modal-body text-center pb-5">
+          <h5 class="mb-4">Are you sure you want to delete this item?</h5>
+          <a href="#" class="btn btn-sm btn-danger" id="yesBtn" style="margin-right: 20px;"> Yes</a>
+          <a href="#" class="btn btn-sm btn-info ml-4 text-white">No</a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- <script src="js/jquery.dataTables.min.js"></script> -->
+  <script  src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/2.1.3/js/dataTables.js"></script>
+  <script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+
+  <script>
+    // let table = new DataTable('#dTable');
+    $(document).ready( function () {
+    $('#dTable').DataTable();
+    } );
+  </script>
+  <script>
+    $(document).ready( function () {
+    $("#yesBtn").click(function(){
+      $(this).attr("href", "https://www.w3school.com ")
+    })
+  });
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Login </title>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Montserrat:wght@800&amp;display=swap'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+  <!-- partial:index.partial.html -->
+  <div class="bgdiv pt-5">
+    <h3 class="mainhead">POLICY TRACKING SYSTEM</h3>
+    <div class="login-form">
+      <div class="form-title">
+        Client Login
+      </div>
+
+        <form action="/" method="POST">
+          {% if msg %}
+            <p class="text-warning text-center">{{msg}}</p>
+          {% endif %}
+        {% csrf_token %}
+        <div class="form-input">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username">
+        </div>
+        <div class="form-input">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password">
+        </div>
+        <div class="captcha">
+          <label for="captcha-input">Enter Captcha</label>
+          <div class="preview"></div>
+          <div class="captcha-form">
+            <input type="text" id="captcha-form" placeholder="Enter captcha text">
+            <button class="captcha-refresh">
+              <i class="fa fa-refresh"></i>
+            </button>
+          </div>
+        </div>
+        <div class="form-input">
+          <button id="login-btn">Login</button>
+        </div>
+      </form>
+      <!-- <div class="linktext mb-1">
+        <a href="/change_password">Change Password</a>
+        <a href="/register" style="float:right;">Register</a>
+      </div> -->
+      <div class="imptxt">
+        
+        <p class="text-danger"><b>Important :</b> Please do not disclose your Login Id and Password to anyone. This is
+          critical to ensure the security of your account. </p>
+      </div>
+    </div>
+
+  </div>
+  <!-- partial -->
+  <script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+
+</html>
